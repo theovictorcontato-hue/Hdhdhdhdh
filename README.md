@@ -1,11 +1,11 @@
 -- [[ ⚡ POWER HUB V18 - SERVER COMMAND CONSERTADO ⚡ ]] --
--- Tela de loading + WindUI com fallback + TODAS funções
+-- Tela de loading + WindUI + TODAS tabs e funções OP Brookhaven
 
 local p = game.Players.LocalPlayer
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
--- 1. TELA DE CARREGAMENTO
+-- 1. TELA DE CARREGAMENTO FULLSCREEN
 local sg = Instance.new("ScreenGui")
 sg.Name = "PowerHubLoading"
 sg.DisplayOrder = 9999
@@ -59,11 +59,9 @@ task.spawn(function()
     IniciarV18()
 end)
 
--- 2. FUNÇÃO PRINCIPAL (com fallback se WindUI falhar)
+-- 2. FUNÇÃO PRINCIPAL
 function IniciarV18()
-    local success, WindUI = pcall(function()
-        return loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
-    end)
+    local success, WindUI = pcall(loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua")))
     
     if not success then
         warn("Erro ao carregar WindUI: " .. tostring(WindUI))
@@ -78,11 +76,8 @@ function IniciarV18()
             Theme = "Dark"
         })
     else
-        warn("WindUI falhou - rodando modo básico sem UI")
-        -- Modo fallback simples (sem tabs, só print no console)
-        print("WindUI não carregou - Funções OP ativadas no console:")
-        print("Use chat: !fly, !noclip, !speed 50, !kill [nome], !teleport police, etc.")
-        return  -- Sai se UI falhar (ou continue com funções básicas)
+        warn("WindUI falhou - rodando modo básico")
+        return
     end
 
     local Alvo = ""
@@ -240,5 +235,6 @@ function IniciarV18()
         if hrp then hrp.CFrame = CFrame.new(-296, 23, 393) end
     end)
 
-    WindUI:Notify("⚡Power Hub⚡ V18", "Carregado 100%! Tela completa + TODAS tabs e funções liberadas", 8)
+    -- NOTIFICAÇÃO FINAL
+    WindUI:Notify("⚡Power Hub⚡ V18", "Carregado! Tela completa + TODAS tabs e funções liberadas", 8)
 end
